@@ -12,8 +12,9 @@ import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
 public abstract class UseCaseBaseTests {
-    protected UUID customerId;
-    protected Product product;
+    protected UUID randomCustomerId;
+    protected UUID randomWishlistId;
+    protected Product randomProduct;
 
     @Before
     public void init() {
@@ -22,8 +23,9 @@ public abstract class UseCaseBaseTests {
 
     @BeforeEach
     void setUpParams() {
-        this.customerId = UUID.randomUUID();
-        this.product = ProductFactory.createRandomProduct();
+        this.randomWishlistId = UUID.randomUUID();
+        this.randomCustomerId = UUID.randomUUID();
+        this.randomProduct = ProductFactory.createRandomProduct();
     }
 
 }

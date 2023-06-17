@@ -30,14 +30,11 @@ public class AddProductToCostumerWishlistUseCaseTests extends UseCaseBaseTests {
     AddProductToCustomerWishlistUseCase addProductToCustomerWishlistUseCase;
     @Mock
     WishlistGateway wishlistGateway;
-    UUID randomWishlistId = UUID.randomUUID();
-    UUID randomCustomerId = UUID.randomUUID();
-    Product product = ProductFactory.createRandomProduct();
 
     @Test
     @DisplayName("Should be added a product to the costumer's wishlist")
     void shouldBeAddedProductToCustomerWishlist() {
-        Input input = new Input(randomCustomerId, product);
+        Input input = new Input(randomCustomerId, randomProduct);
 
         assertDoesNotThrow(() -> addProductToCustomerWishlistUseCase.execute(input));
 
@@ -45,7 +42,7 @@ public class AddProductToCostumerWishlistUseCaseTests extends UseCaseBaseTests {
                 .findWishlistByCustomerId(randomCustomerId);
 
         verify(wishlistGateway, times(1))
-                .addProduct(randomCustomerId, product);
+                .addProduct(randomCustomerId, randomProduct);
     }
 
     @Test
@@ -55,13 +52,13 @@ public class AddProductToCostumerWishlistUseCaseTests extends UseCaseBaseTests {
                 .builder()
                 .wishlistId(randomWishlistId)
                 .customerId(randomCustomerId)
-                .products(new HashSet<>(List.of(product)))
+                .products(new HashSet<>(List.of(randomProduct)))
                 .build();
 
         when(wishlistGateway.findWishlistByCustomerId(randomCustomerId))
                 .thenReturn(Optional.of(wishlistSchema));
 
-        Input input = new Input(randomCustomerId, product);
+        Input input = new Input(randomCustomerId, randomProduct);
 
         assertThrows(
                 WishlistAlreadyContainsProductException.class,
@@ -86,7 +83,7 @@ public class AddProductToCostumerWishlistUseCaseTests extends UseCaseBaseTests {
 
         assertThrows(
                 WishlistExceedsMaximumAllowedException.class,
-                () -> addProductToCustomerWishlistUseCase.execute(new Input(randomCustomerId, product))
+                () -> addProductToCustomerWishlistUseCase.execute(new Input(randomCustomerId, randomProduct))
         );
     }
 
