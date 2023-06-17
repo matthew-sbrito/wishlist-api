@@ -24,6 +24,7 @@ public class CheckIfCustomerWishlistContainsProductController {
     @ResponseStatus(HttpStatus.OK)
     public void handle(@PathVariable UUID customerId, @PathVariable UUID productId) {
         LOGGER.info("Request to check if customer's wishlist contains product!");
+        LOGGER.info("Check product with id '{}' on customer's wishlist with id '{}'", productId, customerId);
 
         this.checkIfCustomerWishlistContainsProductUseCase.execute(
                 new Input(customerId, productId)

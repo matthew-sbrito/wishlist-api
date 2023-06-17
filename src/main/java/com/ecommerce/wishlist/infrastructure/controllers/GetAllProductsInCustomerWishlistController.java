@@ -27,6 +27,7 @@ public class GetAllProductsInCustomerWishlistController {
     @ResponseStatus(HttpStatus.OK)
     public Response handle(@PathVariable UUID customerId) {
         LOGGER.info("Request to get all products from customer's wishlist!");
+        LOGGER.info("Get all products from customer's wishlist with id '{}'", customerId);
 
         Output output = this.getAllProductsInCustomerWishlistUseCase.execute(
                 new Input(customerId)

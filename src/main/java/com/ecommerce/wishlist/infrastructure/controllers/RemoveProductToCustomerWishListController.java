@@ -23,6 +23,7 @@ public class RemoveProductToCustomerWishListController {
     @ResponseStatus(HttpStatus.OK)
     public void handle(@PathVariable UUID customerId, @PathVariable UUID productId) {
         LOGGER.info("Request to remove product in customer's wishlist!");
+        LOGGER.info("Remove product with id '{}' from customer with id '{}'", productId, customerId);
 
         this.removeProductFromCustomerWishlistUseCase
                 .execute(new Input(customerId, productId));

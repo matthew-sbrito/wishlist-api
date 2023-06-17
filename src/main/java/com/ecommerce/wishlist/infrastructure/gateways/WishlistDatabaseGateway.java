@@ -64,11 +64,11 @@ public class WishlistDatabaseGateway implements WishlistGateway {
 
     @Override
     public void removeProduct(UUID customerId, UUID productId) {
-        Query queryFindFromCustomerId = Query.query(Criteria.where("customer.customerId").is(customerId));
+        Query queryFindFromCustomerId = Query.query(Criteria.where("customerId").is(customerId));
         Query queryFindFromProductId = Query.query(Criteria.where("productId").is(productId));
         Update updateProductList = new Update().pull("products", queryFindFromProductId);
 
-        this.mongoTemplate.updateFirst(queryFindFromCustomerId, updateProductList, WishlistSchema.class);
+        this.mongoTemplate.upsert(queryFindFromCustomerId, updateProductList, WishlistSchema.class);
     }
 
     @Override
