@@ -19,7 +19,7 @@ public class AddProductToCustomerWishlistController {
         this.addProductToCustomerWishlistUseCase = addProductToCustomerWishlistUseCase;
     }
 
-    @PostMapping("/wishlist/{customerId}/product")
+    @PostMapping("/wishlist/{customerId}/products")
     @ResponseStatus(HttpStatus.CREATED)
     public void handle(@PathVariable UUID customerId, @RequestBody Product request) {
         LOGGER.info("Request to add product in customer's wishlist!");

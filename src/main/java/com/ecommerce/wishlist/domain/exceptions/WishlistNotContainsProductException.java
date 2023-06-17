@@ -1,7 +1,10 @@
 package com.ecommerce.wishlist.domain.exceptions;
 
-public class WishlistNotContainsProductException extends RuntimeException {
+import com.ecommerce.wishlist.core.exceptions.HttpResponseException;
+import org.springframework.http.HttpStatus;
+
+public class WishlistNotContainsProductException extends HttpResponseException {
     public WishlistNotContainsProductException() {
-        super("The customer doesn't have this product in your wishlist!");
+        super(HttpStatus.NOT_FOUND, "The customer doesn't have this product in your wishlist!");
     }
 }

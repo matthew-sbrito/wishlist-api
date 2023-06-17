@@ -1,7 +1,10 @@
 package com.ecommerce.wishlist.domain.exceptions;
 
-public class WishlistNotFoundException extends RuntimeException {
+import com.ecommerce.wishlist.core.exceptions.HttpResponseException;
+import org.springframework.http.HttpStatus;
+
+public class WishlistNotFoundException extends HttpResponseException {
     public WishlistNotFoundException() {
-        super("Wishlist not found!");
+        super(HttpStatus.NOT_FOUND, "Wishlist not found!");
     }
 }

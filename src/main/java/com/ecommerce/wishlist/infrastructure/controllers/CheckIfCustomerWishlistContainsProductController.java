@@ -20,7 +20,7 @@ public class CheckIfCustomerWishlistContainsProductController {
         this.checkIfCustomerWishlistContainsProductUseCase = checkIfCustomerWishlistContainsProductUseCase;
     }
 
-    @GetMapping("/wishlist/product/contains/{customerId}/{productId}")
+    @GetMapping("/wishlist/{customerId}/products/{productId}/contains")
     @ResponseStatus(HttpStatus.OK)
     public void handle(@PathVariable UUID customerId, @PathVariable UUID productId) {
         LOGGER.info("Request to check if customer's wishlist contains product!");

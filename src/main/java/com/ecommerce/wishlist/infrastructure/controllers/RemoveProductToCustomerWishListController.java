@@ -4,11 +4,7 @@ import com.ecommerce.wishlist.domain.usecases.RemoveProductFromCustomerWishlistU
 import com.ecommerce.wishlist.domain.usecases.RemoveProductFromCustomerWishlistUseCase.Input;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -23,14 +19,12 @@ public class RemoveProductToCustomerWishListController {
         this.removeProductFromCustomerWishlistUseCase = removeProductFromCustomerWishlistUseCase;
     }
 
-    @DeleteMapping("/wishlist/product")
+    @DeleteMapping("/wishlist/{customerId}/products/{productId}")
     @ResponseStatus(HttpStatus.OK)
-    public void handle(@RequestBody @Validated Request request) {
+    public void handle(@PathVariable UUID customerId, @PathVariable UUID productId) {
         LOGGER.info("Request to remove product in customer's wishlist!");
 
         this.removeProductFromCustomerWishlistUseCase
-                .execute(new Input(request.customerId(), request.productId()));
+                .execute(new Input(customerId, productId));
     }
-
-    public record Request(UUID customerId, UUID productId) { }
 }

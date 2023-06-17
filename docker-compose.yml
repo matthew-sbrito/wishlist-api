@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  wishlist-app:
+    build:
+      context: .
+      args:
+        - SERVER_PORT=8080
+    container_name: wishlist-app
+    depends_on:
+      - wishlist-database
+    ports:
+      - "8080:8080"
+    networks:
+      - wishlist-network
+    environment:
+      - SERVER_PORT=8080
+      - MONGO_URI=mongodb://wishlist-database/wishlist
+      - MONGO_DATABASE=wishlist
+      - MONGO_AUTHENTICATION=authentication-database
+
+  wishlist-database:
+    image: bitnami/mongodb:latest
+    container_name: wishlist-database
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - data:/data
+    networks:
+      - wishlist-network
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+
+volumes:
+  data: {}
+
+networks:
+  wishlist-network:
+    driver: bridge
+

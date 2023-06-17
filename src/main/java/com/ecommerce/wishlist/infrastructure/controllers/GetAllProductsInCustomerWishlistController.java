@@ -23,7 +23,7 @@ public class GetAllProductsInCustomerWishlistController {
         this.getAllProductsInCustomerWishlistUseCase = getAllProductsInCustomerWishlistUseCase;
     }
 
-    @GetMapping("/wishlist/product/{customerId}")
+    @GetMapping("/wishlist/{customerId}/products")
     @ResponseStatus(HttpStatus.OK)
     public Response handle(@PathVariable UUID customerId) {
         LOGGER.info("Request to get all products from customer's wishlist!");

@@ -1,8 +1,10 @@
 package com.ecommerce.wishlist.domain.exceptions;
 
+import com.ecommerce.wishlist.core.exceptions.HttpResponseException;
+import org.springframework.http.HttpStatus;
 
-public class WishlistAlreadyContainsProductException extends RuntimeException {
+public class WishlistAlreadyContainsProductException extends HttpResponseException {
     public WishlistAlreadyContainsProductException() {
-        super("The wishlist already contains product!");
+        super(HttpStatus.CONFLICT, "The wishlist already contains product!");
     }
 }
