@@ -22,26 +22,26 @@ public class AddProductToCostumerWishlistControllerTests extends ControllerBaseT
     void shouldBeAddedProductToCostumerWishlistAndReturnStatus201() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(this.product)
-                .post(String.format("/wishlist/%s/products", this.customerId))
+                .body(product)
+                .post(String.format("/wishlist/%s/products", customerId))
                 .then()
                 .statusCode(HttpStatus.CREATED.value());
     }
 
     @Test
-    @DisplayName("Should not add the product to the customer's wish list and should return status 409 as the product has already been added")
+    @DisplayName("Should not add the product to the customer's wishlist and should return status 409 as the product has already been added")
     void shouldNotBeAddProductToCostumerWishlistAndReturnStatus409() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(this.product)
-                .post(String.format("/wishlist/%s/products", this.customerId))
+                .body(product)
+                .post(String.format("/wishlist/%s/products", customerId))
                 .then()
                 .statusCode(HttpStatus.CREATED.value());
 
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(this.product)
-                .post(String.format("/wishlist/%s/products", this.customerId))
+                .body(product)
+                .post(String.format("/wishlist/%s/products", customerId))
                 .then()
                 .statusCode(HttpStatus.CONFLICT.value())
                 .extract()
@@ -62,15 +62,15 @@ public class AddProductToCostumerWishlistControllerTests extends ControllerBaseT
             RestAssured.given()
                     .contentType(ContentType.JSON)
                     .body(product)
-                    .post(String.format("/wishlist/%s/products", this.customerId))
+                    .post(String.format("/wishlist/%s/products", customerId))
                     .then()
                     .statusCode(HttpStatus.CREATED.value());
         }
 
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(this.product)
-                .post(String.format("/wishlist/%s/products", this.customerId))
+                .body(product)
+                .post(String.format("/wishlist/%s/products", customerId))
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .extract()

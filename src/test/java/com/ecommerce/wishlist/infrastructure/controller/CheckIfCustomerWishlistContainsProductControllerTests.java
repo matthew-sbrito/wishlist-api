@@ -20,8 +20,8 @@ public class CheckIfCustomerWishlistContainsProductControllerTests extends Contr
     void addProductInCustomerWishlist() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(this.product)
-                .post(String.format("/wishlist/%s/products", this.customerId))
+                .body(product)
+                .post(String.format("/wishlist/%s/products", customerId))
                 .then()
                 .statusCode(HttpStatus.CREATED.value());
     }
@@ -30,7 +30,7 @@ public class CheckIfCustomerWishlistContainsProductControllerTests extends Contr
     @DisplayName("Should be checked if the customer's wishlist contains product and return status 200")
     void shouldBeCheckedIfCustomerWishlistContainsProductAndReturnStatus200() {
         RestAssured.given()
-                .get(String.format("/wishlist/%s/products/%s/contains", this.customerId, this.product.getProductId()))
+                .get(String.format("/wishlist/%s/products/%s/contains", customerId, product.getProductId()))
                 .then()
                 .statusCode(HttpStatus.OK.value());
     }
@@ -42,7 +42,7 @@ public class CheckIfCustomerWishlistContainsProductControllerTests extends Contr
                 .createRandomProduct();
 
         Response response = RestAssured.given()
-                .get(String.format("/wishlist/%s/products/%s/contains", this.customerId, randomProduct.getProductId()))
+                .get(String.format("/wishlist/%s/products/%s/contains", customerId, randomProduct.getProductId()))
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .extract()

@@ -11,11 +11,11 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-public class RemoveProductToCustomerWishListController {
+public class RemoveProductToCustomerWishlistController {
 
     private final RemoveProductFromCustomerWishlistUseCase removeProductFromCustomerWishlistUseCase;
 
-    public RemoveProductToCustomerWishListController(RemoveProductFromCustomerWishlistUseCase removeProductFromCustomerWishlistUseCase) {
+    public RemoveProductToCustomerWishlistController(RemoveProductFromCustomerWishlistUseCase removeProductFromCustomerWishlistUseCase) {
         this.removeProductFromCustomerWishlistUseCase = removeProductFromCustomerWishlistUseCase;
     }
 
@@ -25,7 +25,7 @@ public class RemoveProductToCustomerWishListController {
         LOGGER.info("Request to remove product in customer's wishlist!");
         LOGGER.info("Remove product with id '{}' from customer with id '{}'", productId, customerId);
 
-        this.removeProductFromCustomerWishlistUseCase
+        removeProductFromCustomerWishlistUseCase
                 .execute(new Input(customerId, productId));
     }
 }

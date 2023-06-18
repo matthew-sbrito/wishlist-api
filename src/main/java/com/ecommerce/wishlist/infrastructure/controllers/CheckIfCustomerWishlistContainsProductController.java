@@ -26,7 +26,7 @@ public class CheckIfCustomerWishlistContainsProductController {
         LOGGER.info("Request to check if customer's wishlist contains product!");
         LOGGER.info("Check product with id '{}' on customer's wishlist with id '{}'", productId, customerId);
 
-        this.checkIfCustomerWishlistContainsProductUseCase.execute(
+        checkIfCustomerWishlistContainsProductUseCase.execute(
                 new Input(customerId, productId)
         );
     }

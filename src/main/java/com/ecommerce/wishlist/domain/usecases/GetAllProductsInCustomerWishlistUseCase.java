@@ -19,7 +19,7 @@ public class GetAllProductsInCustomerWishlistUseCase {
     }
 
     public Output execute(Input input) throws WishlistNotFoundException {
-        Wishlist wishlist = this.wishlistGateway.findWishlistByCustomerId(input.customerId())
+        Wishlist wishlist = wishlistGateway.findWishlistByCustomerId(input.customerId())
                 .orElseThrow(WishlistNotFoundException::new);
 
         return new Output(wishlist.getProducts().stream().toList());

@@ -17,28 +17,28 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RemoveProductToCustomerWishListControllerTests extends ControllerBaseTests {
+public class RemoveProductToCustomerWishlistControllerTests extends ControllerBaseTests {
     @BeforeEach
     void addProductInCustomerWishlist() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(this.product)
-                .post(String.format("/wishlist/%s/products", this.customerId))
+                .body(product)
+                .post(String.format("/wishlist/%s/products", customerId))
                 .then()
                 .statusCode(HttpStatus.CREATED.value());
     }
 
     @Test
-    @DisplayName("Should be remove product from customer wish list, return status 200 and check size equals 0")
+    @DisplayName("Should be remove product from customer wishlist, return status 200 and check size equals 0")
     void shouldBeRemoveProductFromCustomerWishlistReturnStatus200AndCheckSizeEquals0() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .delete(String.format("/wishlist/%s/products/%s", this.customerId, this.product.getProductId()))
+                .delete(String.format("/wishlist/%s/products/%s", customerId, product.getProductId()))
                 .then()
                 .statusCode(HttpStatus.OK.value());
 
         Response response = RestAssured.given()
-                .get(String.format("/wishlist/%s/products", this.customerId))
+                .get(String.format("/wishlist/%s/products", customerId))
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .extract()
@@ -54,13 +54,13 @@ public class RemoveProductToCustomerWishListControllerTests extends ControllerBa
     }
 
     @Test
-    @DisplayName("Should not remove the product because it is not on the customer's wish list")
+    @DisplayName("Should not remove the product because it is not on the customer's wishlist")
     void shouldNotRemoveProductNotContainsOnCustomerWishlist() {
         Product product = ProductFactory.createRandomProduct();
 
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
-                .delete(String.format("/wishlist/%s/products/%s", this.customerId, product.getProductId()))
+                .delete(String.format("/wishlist/%s/products/%s", customerId, product.getProductId()))
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .extract()

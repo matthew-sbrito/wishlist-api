@@ -25,7 +25,7 @@ public class AddProductToCustomerWishlistController {
         LOGGER.info("Request to add product in customer's wishlist!");
         LOGGER.info("Add product in wishlist from customer with id '{}'", customerId);
 
-        this.addProductToCustomerWishlistUseCase
+        addProductToCustomerWishlistUseCase
                 .execute(new Input(customerId, request));
     }
 }

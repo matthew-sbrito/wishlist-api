@@ -23,25 +23,32 @@ public class AddProductToCustomerWishlistUseCase {
     }
 
     public void execute(Input input) throws WishlistNotFoundException {
-        Optional<Wishlist> wishlistOptional = this.wishlistGateway
+        Optional<Wishlist> wishlistOptional = wishlistGateway
                 .findWishlistByCustomerId(input.customerId());
 
         if(wishlistOptional.isEmpty()) {
-            this.wishlistGateway.addProduct(input.customerId(), input.product());
+            wishlistGateway.addProduct(input.customerId(), input.product());
             return;
         }
 
         Wishlist wishlist = wishlistOptional.get();
 
-        if(wishlist.getProducts().contains(input.product())) {
+        checkIfProductContainsInCustomerWishlist(wishlist, input.product());
+        checkIfProductsFromCustomerWishlistExceedMaximumAllowed(wishlist);
+
+        wishlistGateway.addProduct(input.customerId(), input.product());
+    }
+
+    private void checkIfProductContainsInCustomerWishlist(Wishlist wishlist, Product product) {
+        if(wishlist.getProducts().contains(product)) {
             throw new WishlistAlreadyContainsProductException();
         }
+    }
 
+    private void checkIfProductsFromCustomerWishlistExceedMaximumAllowed(Wishlist wishlist) {
         if(wishlist.getProducts().size() >= MAXIMUM_PRODUCTS_ALLOWED) {
             throw new WishlistExceedsMaximumAllowedException();
         }
-
-        this.wishlistGateway.addProduct(input.customerId(), input.product());
     }
 
     public record Input(UUID customerId, Product product) {  }

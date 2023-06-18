@@ -23,9 +23,9 @@ public abstract class UseCaseBaseTests {
 
     @BeforeEach
     void setUpParams() {
-        this.randomWishlistId = UUID.randomUUID();
-        this.randomCustomerId = UUID.randomUUID();
-        this.randomProduct = ProductFactory.createRandomProduct();
+        randomWishlistId = UUID.randomUUID();
+        randomCustomerId = UUID.randomUUID();
+        randomProduct = ProductFactory.createRandomProduct();
     }
 
 }

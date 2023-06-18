@@ -38,17 +38,17 @@ public class WishlistDatabaseGateway implements WishlistGateway {
 
     @Override
     public void addProduct(UUID customerId, Product product) {
-        WishlistSchema wishlistSchema = this.wishlistSchemaRepository
+        WishlistSchema wishlistSchema = wishlistSchemaRepository
                 .findByCustomerId(customerId)
                 .orElseGet(() -> createWishlistSchema(customerId));
 
-        ProductSchema productSchema = this.productSchemaRepository
+        ProductSchema productSchema = productSchemaRepository
                 .findProductSchemaByProductId(product.getProductId())
-                .orElseGet(() -> this.productSchemaRepository.save(this.productModelMapper.mapToSchema(product)));
+                .orElseGet(() -> productSchemaRepository.save(productModelMapper.mapToSchema(product)));
 
         wishlistSchema.getProducts().add(productSchema);
 
-        this.wishlistSchemaRepository.save(wishlistSchema);
+        wishlistSchemaRepository.save(wishlistSchema);
     }
 
     private WishlistSchema createWishlistSchema(UUID customerId) {
@@ -59,7 +59,7 @@ public class WishlistDatabaseGateway implements WishlistGateway {
                 .products(new HashSet<>())
                 .build();
 
-        return this.wishlistModelMapper.mapToSchema(wishlist);
+        return wishlistModelMapper.mapToSchema(wishlist);
     }
 
     @Override
@@ -68,20 +68,20 @@ public class WishlistDatabaseGateway implements WishlistGateway {
         Query queryFindFromProductId = Query.query(Criteria.where("productId").is(productId));
         Update updateProductList = new Update().pull("products", queryFindFromProductId);
 
-        this.mongoTemplate.upsert(queryFindFromCustomerId, updateProductList, WishlistSchema.class);
+        mongoTemplate.upsert(queryFindFromCustomerId, updateProductList, WishlistSchema.class);
     }
 
     @Override
     public boolean customerWishlistContainsProduct(UUID customerId, UUID productId) {
-        return this.wishlistSchemaRepository
+        return wishlistSchemaRepository
                 .findByCustomerIdAndProductId(customerId, productId)
                 .isPresent();
     }
 
     @Override
     public Optional<Wishlist> findWishlistByCustomerId(UUID customerId) {
-        return this.wishlistSchemaRepository
+        return wishlistSchemaRepository
                 .findByCustomerId(customerId)
-                .map(this.wishlistModelMapper::mapToEntity);
+                .map(wishlistModelMapper::mapToEntity);
     }
 }

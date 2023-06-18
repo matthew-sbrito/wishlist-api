@@ -23,8 +23,8 @@ public class GetAllProductsInCustomerWishlistControllerTests extends ControllerB
     void addProductInCustomerWishlist() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(this.product)
-                .post(String.format("/wishlist/%s/products", this.customerId))
+                .body(product)
+                .post(String.format("/wishlist/%s/products", customerId))
                 .then()
                 .statusCode(HttpStatus.CREATED.value());
     }
@@ -33,7 +33,7 @@ public class GetAllProductsInCustomerWishlistControllerTests extends ControllerB
     @DisplayName("Should be returned the product list from the customer's wishlist and return status 200")
     void shouldBeReturnedProductListFromCustomerWishlistAndStatus200() {
         Response response = RestAssured.given()
-                .get(String.format("/wishlist/%s/products", this.customerId))
+                .get(String.format("/wishlist/%s/products", customerId))
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .extract()
@@ -48,7 +48,7 @@ public class GetAllProductsInCustomerWishlistControllerTests extends ControllerB
                 .isEqualTo(1);
 
         assertThat(products.get(0))
-                .isEqualTo(this.product);
+                .isEqualTo(product);
     }
 
     @Test

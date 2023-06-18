@@ -16,7 +16,7 @@ public class CheckIfCustomerWishlistContainsProductUseCase {
     }
 
     public void execute(Input input) {
-        boolean containsProduct = this.wishlistGateway
+        boolean containsProduct = wishlistGateway
                 .customerWishlistContainsProduct(input.customerId(), input.productId());
 
         if(!containsProduct)

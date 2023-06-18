@@ -24,7 +24,7 @@ public class WishlistModelMapper implements ModelMapper<Wishlist, WishlistSchema
         Set<Product> products = wishlistSchema
                 .getProducts()
                 .stream()
-                .map(this.productModelMapper::mapToEntity)
+                .map(productModelMapper::mapToEntity)
                 .collect(Collectors.toSet());
 
         return Wishlist
@@ -40,7 +40,7 @@ public class WishlistModelMapper implements ModelMapper<Wishlist, WishlistSchema
         Set<ProductSchema> products = wishlist
                 .getProducts()
                 .stream()
-                .map(this.productModelMapper::mapToSchema)
+                .map(productModelMapper::mapToSchema)
                 .collect(Collectors.toSet());
 
         return WishlistSchema

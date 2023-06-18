@@ -25,7 +25,7 @@ public abstract class ControllerBaseTests extends MongoContainerBaseTests {
 
     @BeforeEach
     void setUpParams() {
-        this.customerId = UUID.randomUUID();
-        this.product = ProductFactory.createRandomProduct();
+        customerId = UUID.randomUUID();
+        product = ProductFactory.createRandomProduct();
     }
 }

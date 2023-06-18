@@ -29,7 +29,7 @@ public class GetAllProductsInCustomerWishlistController {
         LOGGER.info("Request to get all products from customer's wishlist!");
         LOGGER.info("Get all products from customer's wishlist with id '{}'", customerId);
 
-        Output output = this.getAllProductsInCustomerWishlistUseCase.execute(
+        Output output = getAllProductsInCustomerWishlistUseCase.execute(
                 new Input(customerId)
         );
 

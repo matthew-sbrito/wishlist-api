@@ -17,14 +17,14 @@ public class RemoveProductFromCustomerWishlistUseCase {
     }
 
     public void execute(Input input) throws WishlistNotFoundException {
-        boolean containsProduct = this.wishlistGateway
+        boolean containsProduct = wishlistGateway
                 .customerWishlistContainsProduct(input.customerId(), input.productId());
 
         if(!containsProduct) {
             throw new WishlistNotContainsProductException();
         }
 
-        this.wishlistGateway.removeProduct(input.customerId(), input.productId());
+        wishlistGateway.removeProduct(input.customerId(), input.productId());
     }
 
     public record Input(UUID customerId, UUID productId) {  }

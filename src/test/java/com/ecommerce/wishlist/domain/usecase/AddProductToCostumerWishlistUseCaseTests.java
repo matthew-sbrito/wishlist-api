@@ -18,10 +18,8 @@ import org.mockito.Mock;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -64,6 +62,9 @@ public class AddProductToCostumerWishlistUseCaseTests extends UseCaseBaseTests {
                 WishlistAlreadyContainsProductException.class,
                 () -> addProductToCustomerWishlistUseCase.execute(input)
         );
+
+        verify(wishlistGateway, times(1))
+                .findWishlistByCustomerId(randomCustomerId);
     }
 
     @Test
@@ -85,6 +86,9 @@ public class AddProductToCostumerWishlistUseCaseTests extends UseCaseBaseTests {
                 WishlistExceedsMaximumAllowedException.class,
                 () -> addProductToCustomerWishlistUseCase.execute(new Input(randomCustomerId, randomProduct))
         );
+
+        verify(wishlistGateway, times(1))
+                .findWishlistByCustomerId(randomCustomerId);
     }
 
 }
