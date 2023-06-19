@@ -1,7 +1,7 @@
 package com.ecommerce.wishlist.core.advices;
 
 import com.ecommerce.wishlist.core.exceptions.HttpResponseException;
-import com.ecommerce.wishlist.core.exceptions.HttpResponseExceptionViewModel;
+import com.ecommerce.wishlist.core.exceptions.HttpResponseExceptionDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +14,14 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class HttpResponseExceptionHandler {
     @ExceptionHandler(HttpResponseException.class)
-    protected ResponseEntity<HttpResponseExceptionViewModel> handleHttpError(HttpResponseException httpStatusException, HttpServletRequest request) {
+    protected ResponseEntity<HttpResponseExceptionDTO> handleHttpError(HttpResponseException httpStatusException, HttpServletRequest request) {
         int status = httpStatusException.getHttpStatus().value();
         String reasonPhrase = httpStatusException.getHttpStatus().getReasonPhrase();
         String reason = httpStatusException.getReason();
 
         LOGGER.warn("A error occurred with status {} [{}] and reason '{}'", status, reasonPhrase, reason);
 
-        HttpResponseExceptionViewModel error = HttpResponseExceptionViewModel
+        HttpResponseExceptionDTO error = HttpResponseExceptionDTO
                 .builder()
                 .timestamp(LocalDateTime.now())
                 .status(status)

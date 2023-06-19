@@ -1,6 +1,6 @@
 package com.ecommerce.wishlist.infrastructure.mapper;
 
-import com.ecommerce.wishlist.core.contract.ModelMapper;
+import com.ecommerce.wishlist.core.contracts.ModelMapper;
 import com.ecommerce.wishlist.domain.entities.Product;
 import com.ecommerce.wishlist.domain.entities.Wishlist;
 import com.ecommerce.wishlist.infrastructure.database.schema.ProductSchema;

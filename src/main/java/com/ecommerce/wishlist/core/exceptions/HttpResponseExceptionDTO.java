@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class HttpResponseExceptionViewModel {
+public class HttpResponseExceptionDTO {
     private LocalDateTime timestamp;
     private Integer status;
     private String error;

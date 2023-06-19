@@ -1,6 +1,6 @@
 package com.ecommerce.wishlist.infrastructure.controllers;
 
-import com.ecommerce.wishlist.core.exceptions.HttpResponseExceptionViewModel;
+import com.ecommerce.wishlist.core.exceptions.HttpResponseExceptionDTO;
 import com.ecommerce.wishlist.domain.entities.Product;
 import com.ecommerce.wishlist.domain.usecases.GetAllProductsInCustomerWishlistUseCase;
 import com.ecommerce.wishlist.domain.usecases.GetAllProductsInCustomerWishlistUseCase.Input;
@@ -9,10 +9,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -31,13 +31,17 @@ public class GetAllProductsInCustomerWishlistController {
         this.getAllProductsInCustomerWishlistUseCase = getAllProductsInCustomerWishlistUseCase;
     }
 
-    @Operation(summary = "Get all products from customer's wishlist")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Return product list from the customer's wishlist"),
-            @ApiResponse(responseCode = "404", description = "The customer's wishlist not found", content = {
-                    @Content(schema = @Schema(oneOf = HttpResponseExceptionViewModel.class))
-            }),
-    })
+    @Operation(
+            summary = "Get all products from customer's wishlist",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Return product list from the customer's wishlist", content = {
+                            @Content(schema = @Schema(oneOf = Response.class, title = "GetAllResponse", description = "DTO for get all products from wishlist action"), mediaType = MediaType.APPLICATION_JSON_VALUE)
+                    }),
+                    @ApiResponse(responseCode = "404", description = "The customer's wishlist not found", content = {
+                            @Content(schema = @Schema(oneOf = HttpResponseExceptionDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)
+                    }),
+            }
+    )
     @GetMapping("/wishlist/{customerId}/products")
     @ResponseStatus(HttpStatus.OK)
     public Response handle(@PathVariable UUID customerId) {
@@ -51,5 +55,6 @@ public class GetAllProductsInCustomerWishlistController {
         return new Response(output.products());
     }
 
-    public record Response(List<Product> products) { }
+    public record Response(List<Product> products) {
+    }
 }

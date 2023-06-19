@@ -1,4 +1,4 @@
-package com.ecommerce.wishlist.core.contract;
+package com.ecommerce.wishlist.core.contracts;
 
 public interface ModelMapper<Entity, Schema> {
     Entity mapToEntity(Schema schema);

@@ -1,10 +1,12 @@
 package com.ecommerce.wishlist.infrastructure.controllers;
 
+import com.ecommerce.wishlist.core.exceptions.HttpResponseExceptionDTO;
 import com.ecommerce.wishlist.domain.usecases.CheckIfCustomerWishlistContainsProductUseCase;
 import com.ecommerce.wishlist.domain.usecases.CheckIfCustomerWishlistContainsProductUseCase.Input;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,11 +27,15 @@ public class CheckIfCustomerWishlistContainsProductController {
         this.checkIfCustomerWishlistContainsProductUseCase = checkIfCustomerWishlistContainsProductUseCase;
     }
 
-    @Operation(summary = "Add a product to customer's wishlist")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "The product contains in the customer's wishlist"),
-            @ApiResponse(responseCode = "404", description = "The product not contains in the customer's wishlist")
-    })
+    @Operation(
+            summary = "Add a product to customer's wishlist",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "The product contains in the customer's wishlist"),
+                    @ApiResponse(responseCode = "404", description = "The product not contains in the customer's wishlist", content = {
+                            @Content(schema = @Schema(oneOf = HttpResponseExceptionDTO.class))
+                    })
+            }
+    )
     @GetMapping("/wishlist/{customerId}/products/{productId}/contains")
     @ResponseStatus(HttpStatus.OK)
     public void handle(@PathVariable UUID customerId, @PathVariable UUID productId) {
