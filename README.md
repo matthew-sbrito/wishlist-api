@@ -31,7 +31,7 @@
   ```shell
     ./startup.sh 
   ```
-- Com o comando acima, o projeto será empacotado, gerando o arquivo JAR necessário para executar a aplicação;
+- Com o comando acima, o projeto será testado, e ao passar nos testes será empacotado, gerando o arquivo JAR necessário para executar a aplicação;
 - Logo em seguida ele irá construir uma imagem a partir desse JAR;
 - E por fim subir os contêineres;
 - Ao subir os contêineres, a aplicação ficará disponível na porta 8080 da sua máquina;
